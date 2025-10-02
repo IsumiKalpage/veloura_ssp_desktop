@@ -1,7 +1,8 @@
 <x-guest-layout>
-    <div class="min-h-screen bg-gradient-to-br from-rose-50 to-neutral-100 flex items-center justify-center px-4">
-        <div class="w-full max-w-lg bg-white rounded-2xl shadow-2xl p-8 md:p-10 border border-neutral-100 my-12">
-            
+    <div class="min-h-screen bg-gradient-to-br from-rose-100 via-pink-50 to-neutral-100 flex items-center justify-center px-4">
+        <!-- Glass Morphism Card -->
+        <div class="w-full max-w-lg glass-card my-12">
+
             {{-- Success Message (after register) --}}
             @if (session('success'))
                 <div class="mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
@@ -18,7 +19,7 @@
 
             <h1 class="text-center text-2xl font-bold text-neutral-900 mb-6">User Login</h1>
 
-            {{-- Session Status (password reset, etc.) --}}
+            {{-- Session Status --}}
             @if (session('status'))
                 <div class="mb-4 text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
                     {{ session('status') }}
@@ -43,7 +44,7 @@
                 <div>
                     <label for="email" class="block text-sm font-medium text-neutral-700">Email</label>
                     <input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus
-                           class="mt-1 block w-full rounded-xl border-neutral-300 focus:border-rose-600 focus:ring-rose-600 shadow-sm" />
+                           class="mt-1 block w-full rounded-xl border-neutral-300 focus:border-rose-600 focus:ring-rose-600 shadow-sm bg-white/60 backdrop-blur-md" />
                     @error('email')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -53,7 +54,7 @@
                 <div>
                     <label for="password" class="block text-sm font-medium text-neutral-700">Password</label>
                     <input id="password" name="password" type="password" required
-                           class="mt-1 block w-full rounded-xl border-neutral-300 focus:border-rose-600 focus:ring-rose-600 shadow-sm" />
+                           class="mt-1 block w-full rounded-xl border-neutral-300 focus:border-rose-600 focus:ring-rose-600 shadow-sm bg-white/60 backdrop-blur-md" />
                     @error('password')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -92,4 +93,17 @@
             @endif
         </div>
     </div>
+
+    {{-- Glass CSS --}}
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1); /* transparency */
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(25px) saturate(190%);
+            -webkit-backdrop-filter: blur(25px) saturate(190%);
+            padding: 2.5rem 3rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </x-guest-layout>
