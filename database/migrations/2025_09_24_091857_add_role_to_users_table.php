@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // use string so it's flexible: 'customer' | 'admin' | etc.
+           
             $table->string('role')->default('customer')->index()->after('email');
         });
     }

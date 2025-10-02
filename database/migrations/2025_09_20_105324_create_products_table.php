@@ -13,7 +13,7 @@ return new class extends Migration {
             // 'skincare', 'haircare', 'cosmetics'
             $table->string('category', 20);
             $table->decimal('price', 10, 2);
-            // numeric stock; we'll derive stock-status in views
+          
             $table->unsignedInteger('stock')->default(0);
             // 'active' or 'draft'
             $table->string('status', 16)->default('active');

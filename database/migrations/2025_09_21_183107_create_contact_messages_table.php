@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     public function up(): void
     {
         Schema::create('contact_messages', function (Illuminate\Database\Schema\Blueprint $table) {
@@ -20,14 +18,12 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->text('message');
             $table->string('ip_address')->nullable();
-            $table->string('status')->default('new'); // new | read | archived (optional)
+            $table->string('status')->default('new'); 
             $table->timestamps();
         });
     }
     
-    /**
-     * Reverse the migrations.
-     */
+  
     public function down(): void
     {
         Schema::dropIfExists('contact_messages');
