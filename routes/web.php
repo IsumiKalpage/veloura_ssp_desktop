@@ -20,12 +20,12 @@ use App\Http\Controllers\Admin\ContactMessageController;
 |--------------------------------------------------------------------------
 */
 
-// ✅ Public homepage
+// Public homepage
 Route::get('/', function () {
     return view('welcome');
 });
 
-// ✅ Customer Dashboard (requires login)
+// Customer Dashboard (requires login)
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -34,20 +34,14 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-// ✅ Profile Status (for logged in users)
+// Profile Status (for logged in users)
 Route::get('/profile-status', function () {
     return view('auth.profile-status');
 })->middleware(['auth'])->name('profile.status');
 
-/*
-|--------------------------------------------------------------------------
-| Admin routes
-| - Keep your /admindashboard path
-| - Everything protected by ['auth','admin']
-|--------------------------------------------------------------------------
-*/
 
-// Single dashboard route without /admin prefix (you asked to keep this path)
+
+//Single dashboard route without /admin prefix 
 Route::get('/admindashboard', [AdminDashboardController::class, 'index'])
     ->middleware(['auth', 'admin'])
     ->name('admindashboard');
@@ -71,11 +65,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     Route::get('/orders', [AdminOrdersController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [AdminOrdersController::class, 'show'])->name('orders.show');
 
-    // 🔧 Add the missing route so the table’s form works
+
     Route::patch('/orders/{id}/status', [AdminCustomerOrdersController::class, 'updateStatus'])
         ->name('orders.updateStatus');
 
-    // (Optional) separate “customer-orders” views you had earlier
+
     Route::get('/customer-orders', [AdminCustomerOrdersController::class, 'index'])->name('customerOrders.index');
     Route::get('/customer-orders/{id}', [AdminCustomerOrdersController::class, 'show'])->name('customerOrders.show');
     Route::patch('/customer-orders/{id}/status', [AdminCustomerOrdersController::class, 'updateStatus'])->name('customerOrders.updateStatus');
@@ -92,43 +86,43 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 |--------------------------------------------------------------------------
 */
 
-// ✅ Customer Shop
+// Customer Shop
 Route::get('/shop', [CustomerProductController::class, 'index'])->name('shop.index');
 
-// 🔒 Product details only for logged-in users
+// Product details only for logged-in users
 Route::get('/shop/{product}', [CustomerProductController::class, 'show'])
     ->middleware('auth')
     ->name('shop.show');
 
-// ✅ Category-specific shop pages
+// Category-specific shop pages
 Route::get('/skincare', [CustomerProductController::class, 'skincare'])->name('shop.skincare');
 Route::get('/haircare', [CustomerProductController::class, 'haircare'])->name('shop.haircare');
 Route::get('/cosmetics', [CustomerProductController::class, 'cosmetics'])->name('shop.cosmetics');
 
-// ✅ Cart
+// Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update/{product}', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');
 
-// ✅ Checkout
+// Checkout
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/checkout/confirmation/{id}', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
 
-// ✅ Customer Orders
+// Customer Orders
 Route::middleware(['auth'])->group(function () {
     Route::get('/account/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/account/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
 });
 
-// ✅ Contact Us (Customer Side)
+// Contact Us (Customer Side)
 Route::get('/contact', function () {
     return view('customer.contact');
 })->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// ✅ About Us (Public Page)
+// About Us (Public Page)
 Route::get('/about', function () {
     return view('about');
 })->name('about');
