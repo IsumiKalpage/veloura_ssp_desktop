@@ -69,13 +69,18 @@
                 </p>
 
                 {{-- Add to Cart Button --}}
-                <form action="{{ route('cart.add', $product) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="w-full md:w-1/2 py-3 bg-rose-600 text-white rounded-lg hover:bg-rose-700 mb-6">
-                        Add to Cart
+                @if($product->stock > 0)
+                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full md:w-1/2 py-3 bg-rose-600 text-white rounded-lg hover:bg-rose-700 mb-6">
+                            Add to Cart
+                        </button>
+                    </form>
+                @else
+                    <button disabled class="w-full md:w-1/2 py-3 bg-gray-400 text-white rounded-lg mb-6 cursor-not-allowed">
+                        Out of Stock
                     </button>
-                </form>
-
+                @endif
 
                 {{-- Extra Info --}}
                 <ul class="text-sm text-gray-600 space-y-2">

@@ -11,7 +11,7 @@ class CustomRegisterResponse implements RegisterResponseContract
         // Flash success message
         session()->flash('success', 'Account successfully registered! Please log in.');
 
-        // Redirect to login page instead of auto-login
+        // Redirect to login page 
         return redirect()->route('login');
     }
 }

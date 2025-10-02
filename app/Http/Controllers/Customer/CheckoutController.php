@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MongoOrder;
+use App\Models\Product;
 
 class CheckoutController extends Controller
 {
@@ -25,12 +26,22 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $cart = session()->get('cart', []);
+
+        // 🛑 Check stock availability before saving order
+        foreach ($cart as $id => $item) {
+            $product = Product::find($id);
+
+            if (!$product || $product->stock < $item['quantity']) {
+                return back()->with('error', "Not enough stock for {$item['name']}.");
+            }
+        }
+
         $subtotal = collect($cart)->sum(fn($item) => $item['price'] * $item['quantity']);
         $shipping = 350;
         $tax = 100;
         $total = $subtotal + $shipping + $tax;
 
-        // ✅ Save order to MongoDB (category is already inside $cart now)
+        // ✅ Save order to MongoDB
         $order = MongoOrder::create([
             'user_id'   => auth()->id(),
             'name'      => $request->name,
@@ -46,13 +57,18 @@ class CheckoutController extends Controller
             'billing_postal'   => $request->billing_postal_code ?? $request->postal_code,
             'payment_method'   => $request->payment_method,
             'notes'            => $request->notes,
-            'items'            => $cart, // ✅ each item now has category
+            'items'            => $cart,
             'subtotal'         => $subtotal,
             'shipping'         => $shipping,
             'tax'              => $tax,
             'total'            => $total,
             'status'           => 'pending',
         ]);
+
+        // 🔻 Deduct stock from MySQL products
+        foreach ($cart as $id => $item) {
+            Product::where('id', $id)->decrement('stock', $item['quantity']);
+        }
 
         // Clear cart
         session()->forget('cart');

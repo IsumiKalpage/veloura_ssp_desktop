@@ -11,7 +11,7 @@ use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
-    // 🔑 Register API
+    // Register API
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -20,7 +20,7 @@ class AuthController extends Controller
             'password' => ['required','confirmed', Password::defaults()],
         ]);
 
-        // Split full name into first_name and last_name
+    
         $fullName   = $data['name'];
         $parts      = explode(' ', $fullName, 2);
         $firstName  = $parts[0];
@@ -29,7 +29,7 @@ class AuthController extends Controller
         $user = User::create([
             'first_name' => $firstName,
             'last_name'  => $lastName,
-            'name'       => $fullName, // keep original full name if your table has it
+            'name'       => $fullName, 
             'email'      => $data['email'],
             'password'   => Hash::make($data['password']),
             'role'       => 'customer',
@@ -40,7 +40,7 @@ class AuthController extends Controller
         return response()->json(['user' => $user, 'token' => $token], 201);
     }
 
-    // 🔑 Login API
+    // Login API
     public function login(Request $request)
     {
         $request->validate([
@@ -62,13 +62,13 @@ class AuthController extends Controller
         ]);
     }
 
-    // 👤 Current user (requires auth:sanctum)
+    // Current user (auth:sanctum)
     public function me(Request $request)
     {
         return response()->json($request->user());
     }
 
-    // 🔐 Logout API
+    // Logout API
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();

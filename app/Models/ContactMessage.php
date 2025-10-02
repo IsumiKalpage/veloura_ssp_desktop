@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactMessage extends Model
 {
-    // Force MySQL in case your default connection switches
+    
     protected $connection = 'mysql';
 
     protected $fillable = [

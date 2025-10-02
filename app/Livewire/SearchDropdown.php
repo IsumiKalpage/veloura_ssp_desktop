@@ -22,7 +22,7 @@ class SearchDropdown extends Component
                 ->get();
         }
 
-        $this->highlightIndex = 0; // reset selection
+        $this->highlightIndex = 0; 
     }
 
     public function incrementHighlight()
@@ -43,7 +43,7 @@ class SearchDropdown extends Component
             return redirect()->route('shop.show', $this->results[$this->highlightIndex]);
         }
 
-        // If no item highlighted, run full search
+      
         return $this->search();
     }
 

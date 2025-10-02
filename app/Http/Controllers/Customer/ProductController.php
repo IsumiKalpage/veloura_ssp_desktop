@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // 🔹 Shop All
+    // Shop All
     public function index(Request $request)
     {
         $query = Product::query();
 
-        // 🔎 Handle search query
+        // Handle search query
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where(function ($q) use ($searchTerm) {
@@ -22,22 +22,22 @@ class ProductController extends Controller
             });
         }
 
-        // 🏷 Category filter
+        //  Category filter
         if ($request->category) {
             $query->where('category', $request->category);
         }
 
-        // 🏷 Brand filter
+        // Brand filter
         if ($request->brand) {
             $query->where('brand', 'like', '%' . $request->brand . '%');
         }
 
-        // ⭐ Rating filter
+        // Rating filter
         if ($request->rating) {
             $query->where('rating', '>=', $request->rating);
         }
 
-        // 💵 Price filter
+        // Price filter
         if ($request->min_price) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -51,13 +51,13 @@ class ProductController extends Controller
     }
 
 
-    // 🔹 Product Details
+    // Product Details
     public function show(Product $product)
     {
         return view('customer.product-details', compact('product'));
     }
 
-    // 🔹 Skincare only
+    //  Skincare only
     public function skincare(Request $request)
     {
         $query = Product::where('category', 'skincare');
@@ -82,7 +82,7 @@ class ProductController extends Controller
         return view('customer.skincare', compact('products'));
     }
 
-    // 🔹 Haircare only
+    //  Haircare only
     public function haircare(Request $request)
     {
         $query = Product::where('category', 'haircare');
@@ -107,7 +107,7 @@ class ProductController extends Controller
         return view('customer.haircare', compact('products'));
     }
 
-    // 🔹 Cosmetics only
+    //  Cosmetics only
     public function cosmetics(Request $request)
     {
         $query = Product::where('category', 'cosmetics');

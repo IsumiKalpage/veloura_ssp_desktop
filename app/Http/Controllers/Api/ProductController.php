@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // 🔹 List Products (JSON for mobile)
+    // List Products
     public function index(Request $request)
     {
         $query = Product::query();
 
-        // Category filter (ignore if "all")
+        // Category filter 
         if ($request->filled('category') && $request->category !== 'all') {
             $query->where('category', $request->category);
         }
@@ -36,10 +36,10 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // ✅ Paginate
+        //  Paginate
         $products = $query->latest()->paginate(12)->appends($request->all());
 
-        // ✅ Map image paths → full URLs
+        // Map image paths → full URLs
         $products->getCollection()->transform(function ($product) {
             $product->image_url = $product->image_path
                 ? asset('storage/' . $product->image_path)
@@ -55,12 +55,12 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    // 🔹 Product Details (JSON for mobile)
+    // Product Details (JSON for mobile)
     public function show($id)
     {
         $product = Product::findOrFail($id);
 
-        // ✅ Add full image URLs
+        //  Add full image URLs
         $product->image_url = $product->image_path
             ? asset('storage/' . $product->image_path)
             : null;

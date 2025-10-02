@@ -10,7 +10,7 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        // Fetch all customers (later you can filter by role if needed)
+        // Fetch all customers 
         $customers = User::all();
 
         return view('admin.customers', compact('customers'));

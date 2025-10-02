@@ -15,21 +15,15 @@ class AdminDashboardController extends Controller
         $totalCustomers = User::count();
         $totalOrders    = MongoOrder::count();
 
-        // ✅ Total Revenue (sum of all orders)
+        //Total Revenue (sum of all orders)
         $totalRevenue = MongoOrder::sum('total');
 
-        // ✅ Recent Orders (last 5)
+        // Recent Orders (last 5)
         $recentOrders = MongoOrder::orderBy('created_at', 'desc')->take(5)->get();
 
         /**
-         * ---------- TOP PRODUCTS (True top 5 by quantity) ----------
-         * 1) Group by items.product_id when available.
-         * 2) For items missing product_id, group by items.name.
-         * 3) Map those names to real SQL products and merge counts with #1.
-         * 4) Sort by count desc, take 5, and attach product details (brand/category/image).
+         * ---------- TOP PRODUCTS (True top 5 by quantity) ---------
          */
-
-        // 1) group by product_id (exists & not null/empty)
         $byId = MongoOrder::raw(function ($col) {
             return $col->aggregate([
                 ['$unwind' => '$items'],
@@ -43,7 +37,6 @@ class AdminDashboardController extends Controller
             ]);
         });
 
-        // 2) group by name for items missing product_id
         $byName = MongoOrder::raw(function ($col) {
             return $col->aggregate([
                 ['$unwind' => '$items'],
@@ -65,7 +58,7 @@ class AdminDashboardController extends Controller
             ]);
         });
 
-        // Build counts by product id from #1
+    
         $countByProductId = [];
         foreach ($byId as $row) {
             $pid = $row->_id;
@@ -73,11 +66,10 @@ class AdminDashboardController extends Controller
             $countByProductId[$pid] = ($countByProductId[$pid] ?? 0) + (int)$row->count;
         }
 
-        // Resolve names -> products (SQL), then merge counts into the same map
         $names = collect($byName)->pluck('_id')->filter()->unique()->values();
         $productsByName = Product::whereIn('name', $names)->get()->keyBy('name');
 
-        // Track any unresolved names (old/deleted products) to still show as rows
+  
         $unresolvedNameCounts = [];
 
         foreach ($byName as $row) {
@@ -89,18 +81,17 @@ class AdminDashboardController extends Controller
                 $pid = (int) $product->id;
                 $countByProductId[$pid] = ($countByProductId[$pid] ?? 0) + $qty;
             } else {
-                // keep as "orphan" by name so it can compete in top 5 if truly popular
+               
                 $unresolvedNameCounts[$name] = ($unresolvedNameCounts[$name] ?? 0) + $qty;
             }
         }
 
-        // Load product details for ids we have
+      
         $productIds = array_keys($countByProductId);
         $productsMap = $productIds
             ? Product::whereIn('id', $productIds)->get()->keyBy('id')
             : collect();
 
-        // Build unified list: resolved products + unresolved names
         $topList = [];
 
         foreach ($countByProductId as $pid => $qty) {
@@ -128,13 +119,13 @@ class AdminDashboardController extends Controller
             ];
         }
 
-        // Sort by count desc and take 5
+        
         $topProducts = collect($topList)
             ->sortByDesc('count')
             ->take(5)
             ->values();
 
-        // ---------- SALES (unchanged) ----------
+       
         $salesData = MongoOrder::raw(function($collection) {
             return $collection->aggregate([
                 [

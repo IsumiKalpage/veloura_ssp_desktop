@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    // 🔹 Store Contact Message (JSON)
+    // Store Contact Message 
     public function store(Request $request)
     {
         $data = $request->validate([

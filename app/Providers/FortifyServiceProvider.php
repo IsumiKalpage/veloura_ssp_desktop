@@ -39,7 +39,7 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        // 👇 Custom login response (admin → admindashboard, others → dashboard)
+        // Custom login response (admin → admindashboard, others → dashboard)
         $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
     }
 

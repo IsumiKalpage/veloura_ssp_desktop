@@ -148,7 +148,7 @@
                 {{-- Product Grid --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($products as $p)
-                        <a href="{{ route('shop.show', $p) }}" class="group bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 block">
+                        <a href="{{ route('shop.show', $p) }}" class="group bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 block relative">
                             {{-- Image --}}
                             <div class="relative w-full h-56 mb-3 rounded-lg overflow-hidden">
                                 @if($p->discount > 0)
@@ -156,6 +156,14 @@
                                         -{{ $p->discount }}%
                                     </span>
                                 @endif
+
+                                {{-- Out of Stock Overlay --}}
+                                @if($p->stock <= 0)
+                                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20">
+                                        <span class="text-white font-semibold text-sm">Out of Stock</span>
+                                    </div>
+                                @endif
+
                                 <img src="{{ $p->image_path ? asset('storage/'.$p->image_path) : asset('images/placeholder-product.png') }}"
                                      class="w-full h-full object-cover absolute inset-0 group-hover:opacity-0 transition duration-300">
                                 @if($p->image_path2)

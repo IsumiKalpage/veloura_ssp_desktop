@@ -22,6 +22,6 @@ class OrderController extends Controller
         $order = MongoOrder::where('user_id', auth()->id())->findOrFail($id);
 
         return view('customer.confirmation', compact('order')); 
-        // reusing confirmation view for individual order
+       
     }
 }

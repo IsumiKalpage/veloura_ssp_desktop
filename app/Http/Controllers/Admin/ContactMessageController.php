@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 
 class ContactMessageController extends Controller
 {
-    // List messages (with search)
+    // List messages 
     public function index(Request $request)
     {
         $query = ContactMessage::query();
 
-        // 🔍 Apply search filter
+        // Apply search filter
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {

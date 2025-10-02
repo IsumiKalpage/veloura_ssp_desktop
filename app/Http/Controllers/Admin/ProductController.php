@@ -14,22 +14,22 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        // 🔎 Search by name
+        // Search by name
         if ($request->filled('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // 📂 Category filter
+        // Category filter
         if ($request->filled('category')) {
             $query->where('category', $request->category);
         }
 
-        // 🏷️ Status filter
+        // Status filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // 📦 Stock filter
+        // Stock filter
         if ($request->filled('stock_status')) {
             if ($request->stock_status === 'in_stock') {
                 $query->where('stock', '>', 5);
@@ -40,17 +40,17 @@ class ProductController extends Controller
             }
         }
 
-        // 🏭 Brand filter
+        // Brand filter
         if ($request->filled('brand')) {
             $query->where('brand', 'like', '%' . $request->brand . '%');
         }
 
-        // ⭐ Rating filter
+        // Rating filter
         if ($request->filled('rating')) {
             $query->where('rating', '>=', $request->rating);
         }
 
-        // 💸 Discount filter
+        // Discount filter
         if ($request->filled('discount')) {
             if ($request->discount === 'with') {
                 $query->whereNotNull('discount')->where('discount', '>', 0);
@@ -61,7 +61,7 @@ class ProductController extends Controller
             }
         }
 
-        // ✅ Run query
+        // Run query
         $products = $query->latest()->paginate(10)->appends($request->all());
 
         return view('admin.products.index', compact('products'));

@@ -18,6 +18,11 @@ class CartController extends Controller
     // Add product to cart
     public function add(Request $request, Product $product)
     {
+        // 🛑 Prevent adding if stock is 0
+        if ($product->stock <= 0) {
+            return redirect()->back()->with('error', 'This product is out of stock.');
+        }
+
         $cart = session()->get('cart', []);
 
         // ✅ If product has discount, apply it
@@ -27,6 +32,10 @@ class CartController extends Controller
         }
 
         if (isset($cart[$product->id])) {
+            // 🛑 Prevent exceeding stock
+            if ($cart[$product->id]['quantity'] + 1 > $product->stock) {
+                return redirect()->back()->with('error', 'Not enough stock available.');
+            }
             $cart[$product->id]['quantity']++;
         } else {
             $cart[$product->id] = [
@@ -50,7 +59,14 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
 
         if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity'] = $request->quantity;
+            $quantity = (int) $request->quantity;
+
+            // 🛑 Prevent exceeding stock
+            if ($quantity > $product->stock) {
+                return back()->with('error', 'Not enough stock available.');
+            }
+
+            $cart[$product->id]['quantity'] = $quantity;
             session()->put('cart', $cart);
         }
 

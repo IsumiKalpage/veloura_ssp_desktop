@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    // 🔹 List Orders (for logged-in user)
+    // List Orders 
     public function index(Request $request)
     {
         $orders = MongoOrder::where('user_id', $request->user()->id)
@@ -18,14 +18,14 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
-    // 🔹 Single Order
+    
     public function show(Request $request, $id)
     {
         $order = MongoOrder::where('user_id', $request->user()->id)->findOrFail($id);
         return response()->json($order);
     }
 
-    // 🔹 Create Order
+ 
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -53,7 +53,7 @@ class OrderController extends Controller
             'billing_postal'   => ['nullable','string'],
         ]);
 
-        // ✅ Calculate totals on server
+       
         $subtotal = collect($data['items'])->sum(fn($i) => $i['price'] * $i['quantity']);
         $shipping = 350;
         $tax      = 100;
@@ -79,7 +79,7 @@ class OrderController extends Controller
             'notes'            => $data['notes'] ?? null,
             'items'            => $data['items'],
 
-            // ✅ trusted server-side totals
+           
             'subtotal'         => $subtotal,
             'shipping'         => $shipping,
             'tax'              => $tax,
