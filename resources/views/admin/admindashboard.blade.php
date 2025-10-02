@@ -47,7 +47,6 @@
         </header>
 
         <main class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-6 flex gap-6">
-            
             <!-- Sidebar Drawer for Mobile -->
             <div 
                 class="fixed inset-0 z-40 md:hidden"
@@ -75,30 +74,23 @@
                     
                     <div class="flex items-center justify-between mb-6">
                         <img src="{{ asset('images/logo.png') }}" alt="Veloura Logo" class="h-8">
-                        <button @click="sidebarOpen = false" class="text-gray-600">
-                            ✕
-                        </button>
+                        <button @click="sidebarOpen = false" class="text-gray-600">✕</button>
                     </div>
 
                     <nav class="flex flex-col gap-3 text-sm">
-                        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-rose-600 bg-rose-50 font-semibold"
-                            href="#">
+                        <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-rose-600 bg-rose-50 font-semibold" href="#">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
-                        <a href="{{ route('admin.products.index') }}" 
-                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
-                                <i class="fas fa-box"></i> Products
+                        <a href="{{ route('admin.products.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                            <i class="fas fa-box"></i> Products
                         </a>
-                        <a href="{{ route('admin.customers.index') }}" 
-                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                        <a href="{{ route('admin.customers.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
                             <i class="fas fa-users"></i> Customers
                         </a>
-                        <a href="{{ route('admin.orders.index') }}" 
-                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                        <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
                             <i class="fas fa-shopping-cart"></i> Orders
                         </a>
-                        <a href="{{ route('admin.messages.index') }}" 
-                            class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                        <a href="{{ route('admin.messages.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
                             <i class="fas fa-envelope"></i> Messages
                         </a>
                         <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100" href="#">
@@ -114,24 +106,19 @@
             <!-- Desktop Sidebar -->
             <aside class="hidden md:block bg-white rounded-2xl shadow-sm border border-gray-100 p-3 w-56">
                 <nav class="flex flex-col gap-1 text-sm">
-                    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-rose-600 bg-rose-50 font-semibold"
-                        href="#">
+                    <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-rose-600 bg-rose-50 font-semibold" href="#">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
-                    <a href="{{ route('admin.products.index') }}" 
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
-                            <i class="fas fa-box"></i> Products
+                    <a href="{{ route('admin.products.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                        <i class="fas fa-box"></i> Products
                     </a>
-                    <a href="{{ route('admin.customers.index') }}" 
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                    <a href="{{ route('admin.customers.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
                         <i class="fas fa-users"></i> Customers
                     </a>
-                    <a href="{{ route('admin.orders.index') }}" 
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                    <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
                         <i class="fas fa-shopping-cart"></i> Orders
                     </a>
-                    <a href="{{ route('admin.messages.index') }}" 
-                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                    <a href="{{ route('admin.messages.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
                         <i class="fas fa-envelope"></i> Messages
                     </a>
                     <a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100" href="#">
@@ -243,11 +230,11 @@
                                         <tr class="hover:bg-gray-50 transition">
                                             <td class="px-4 py-4 flex items-center gap-4 max-w-[240px]">
                                                 <img src="{{ $product->image ? asset('storage/'.$product->image) : asset('images/placeholder-product.png') }}"
-                                                    alt="{{ $product->_id }}"
+                                                    alt="{{ $product->name }}"
                                                     class="w-12 h-12 rounded-lg object-cover border border-gray-200 shadow-sm">
                                                 <div class="flex-1">
                                                     <p class="text-gray-800 font-medium text-sm leading-snug line-clamp-2">
-                                                        {{ $product->_id }}
+                                                        {{ $product->name }}
                                                     </p>
                                                 </div>
                                             </td>
