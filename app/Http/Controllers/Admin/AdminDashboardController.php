@@ -15,15 +15,11 @@ class AdminDashboardController extends Controller
         $totalCustomers = User::count();
         $totalOrders    = MongoOrder::count();
 
-        //Total Revenue (sum of all orders)
         $totalRevenue = MongoOrder::sum('total');
 
-        // Recent Orders (last 5)
         $recentOrders = MongoOrder::orderBy('created_at', 'desc')->take(5)->get();
 
-        /**
-         * ---------- TOP PRODUCTS (True top 5 by quantity) ---------
-         */
+
         $byId = MongoOrder::raw(function ($col) {
             return $col->aggregate([
                 ['$unwind' => '$items'],
@@ -58,7 +54,6 @@ class AdminDashboardController extends Controller
             ]);
         });
 
-    
         $countByProductId = [];
         foreach ($byId as $row) {
             $pid = $row->_id;
@@ -69,7 +64,6 @@ class AdminDashboardController extends Controller
         $names = collect($byName)->pluck('_id')->filter()->unique()->values();
         $productsByName = Product::whereIn('name', $names)->get()->keyBy('name');
 
-  
         $unresolvedNameCounts = [];
 
         foreach ($byName as $row) {
@@ -81,12 +75,10 @@ class AdminDashboardController extends Controller
                 $pid = (int) $product->id;
                 $countByProductId[$pid] = ($countByProductId[$pid] ?? 0) + $qty;
             } else {
-               
                 $unresolvedNameCounts[$name] = ($unresolvedNameCounts[$name] ?? 0) + $qty;
             }
         }
 
-      
         $productIds = array_keys($countByProductId);
         $productsMap = $productIds
             ? Product::whereIn('id', $productIds)->get()->keyBy('id')
@@ -119,13 +111,12 @@ class AdminDashboardController extends Controller
             ];
         }
 
-        
         $topProducts = collect($topList)
             ->sortByDesc('count')
             ->take(5)
             ->values();
 
-       
+
         $salesData = MongoOrder::raw(function($collection) {
             return $collection->aggregate([
                 [
@@ -154,6 +145,13 @@ class AdminDashboardController extends Controller
             $data[]   = $day->total;
         }
 
+        $customerIdsWithOrders = MongoOrder::raw(function($collection) {
+            return $collection->distinct('user_id');
+        });
+
+        $activeCustomers   = is_array($customerIdsWithOrders) ? count($customerIdsWithOrders) : 0;
+        $inactiveCustomers = $totalCustomers - $activeCustomers;
+
         return view('admin.admindashboard', compact(
             'totalProducts',
             'totalCustomers',
@@ -162,7 +160,9 @@ class AdminDashboardController extends Controller
             'recentOrders',
             'topProducts',
             'labels',
-            'data'
+            'data',
+            'activeCustomers',
+            'inactiveCustomers'
         ));
     }
 }

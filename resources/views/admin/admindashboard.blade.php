@@ -203,11 +203,53 @@
                     </script>
 
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                        <h3 class="font-semibold text-gray-800">Customer Insights</h3>
-                        <div class="h-64 flex items-center justify-center text-gray-400">
-                            Pie Chart Placeholder
+                        <h3 class="font-semibold text-gray-800 mb-4">Customer Insights</h3>
+
+                        <div class="h-64 flex items-center justify-center">
+                            <canvas id="customerInsightsChart" class="w-full h-full"></canvas>
                         </div>
                     </div>
+
+                    {{-- Chart.js for Customer Insights --}}
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            const ctx = document.getElementById('customerInsightsChart').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Active Customers', 'Inactive Customers'],
+                                    datasets: [{
+                                        data: [{{ $activeCustomers }}, {{ $inactiveCustomers }}],
+                                        backgroundColor: [
+                                            'rgba(244, 63, 94, 0.8)',  // rose-600
+                                            'rgba(229, 231, 235, 0.8)' // gray-200
+                                        ],
+                                        borderColor: [
+                                            'rgba(244, 63, 94, 1)',
+                                            'rgba(229, 231, 235, 1)'
+                                        ],
+                                        borderWidth: 2
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'bottom',
+                                            labels: {
+                                                font: {
+                                                    size: 14,
+                                                    weight: '500'
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+
                 </div>
 
                 {{-- Tables --}}
