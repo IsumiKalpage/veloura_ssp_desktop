@@ -21,9 +21,7 @@ use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+
     public function register(): void
     {
         // Custom register response to redirect to login
@@ -39,13 +37,11 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        // Custom login response (admin → admindashboard, others → dashboard)
+
         $this->app->singleton(LoginResponse::class, CustomLoginResponse::class);
     }
 
-    /**
-     * Bootstrap any application services.
-     */
+
     public function boot(): void
     {
         Fortify::createUsersUsing(CreateNewUser::class);
