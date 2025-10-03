@@ -142,7 +142,7 @@
 <x-footer />
 
 <script>
-    // Copy shipping → billing when checkbox is clicked
+    // Copy shipping
     document.getElementById('sameAsShipping').addEventListener('change', function() {
         let billingFields = document.getElementById('billingFields').querySelectorAll('input');
         let shippingFields = {
@@ -162,7 +162,6 @@
         }
     });
 
-    // Show card options only if card payment is selected
     document.querySelectorAll('.payment-radio').forEach(radio => {
         radio.addEventListener('change', function() {
             let cardOptions = document.getElementById('cardOptions');

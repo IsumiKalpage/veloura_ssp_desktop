@@ -1,4 +1,4 @@
-{{-- 🔹 Footer Component --}}
+{{-- Footer Component --}}
 <footer class="bg-[#F6EDED] text-[#6B2E2E] mt-12">
     <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12 grid grid-cols-1 md:grid-cols-5 gap-8">
 

@@ -6,7 +6,6 @@
     <title>Veloura | Welcome</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Elegant Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -27,7 +26,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Glass card */
         .glass {
             background: rgba(255, 255, 255, -0.10); 
             backdrop-filter: blur(90px) saturate(180%);
@@ -64,7 +62,6 @@
             color: #4a4a4a;
         }
 
-        /* Buttons */
         .btn {
             display: block;
             width: 100%;
@@ -112,7 +109,7 @@
         .divider:not(:empty)::before { margin-right: .75em; }
         .divider:not(:empty)::after { margin-left: .75em; }
 
-        /* Social buttons */
+
         .btn-google {
             background: #ffffff;
             border: 1px solid #ddd;

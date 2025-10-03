@@ -131,7 +131,7 @@
                             </a>
                         </div>
 
-                        <!-- Filter Accordion (mobile collapsible, desktop inline) -->
+                        <!-- Filter Accordion -->
                         <div class="md:block">
                             <button 
                                 class="w-full md:hidden flex justify-between items-center bg-rose-100 px-4 py-2 rounded-lg text-sm font-medium text-rose-700 mb-3"

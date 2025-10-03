@@ -12,7 +12,7 @@
 
         <div class="max-w-6xl mx-auto px-6 lg:px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-10">
             
-            {{-- 🔹 Product Images --}}
+            {{--  Product Images --}}
             <div class="space-y-4">
                 <div class="relative w-full h-[400px] bg-white border rounded-xl shadow-sm overflow-hidden group">
                     
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            {{-- 🔹 Product Info --}}
+            {{--  Product Info --}}
             <div class="flex flex-col">
                 <h1 class="text-2xl font-bold text-gray-900 mb-2">{{ $product->name }}</h1>
                 <p class="text-sm text-gray-500 mb-1">{{ $product->brand }}</p>

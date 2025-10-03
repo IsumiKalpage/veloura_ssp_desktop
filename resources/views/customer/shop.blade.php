@@ -12,7 +12,7 @@
 
         <div class="max-w-7xl mx-auto px-6 lg:px-12 py-10 grid grid-cols-1 md:grid-cols-[250px_1fr] gap-8">
             
-            {{-- 🔹 Sidebar Filters (desktop) --}}
+            {{-- Sidebar Filters (desktop) --}}
             <aside class="hidden md:block bg-white rounded-xl shadow-sm border border-gray-100 p-5 h-fit sticky top-24">
                 <h3 class="font-semibold text-gray-800 mb-4">Filters</h3>
 
@@ -72,7 +72,7 @@
                 </form>
             </aside>
 
-            {{-- 🔹 Product Grid --}}
+            {{-- Product Grid --}}
             <section>
                 {{-- Mobile Filter Toggle --}}
                 <div x-data="{ open: false }" class="md:hidden mb-6">

@@ -13,7 +13,7 @@
     <div class="max-w-6xl mx-auto px-6 lg:px-12 py-12 space-y-10">
         
 
-        {{-- ✅ Thank You Banner --}}
+        {{-- Thank You Banner --}}
         <div class="bg-gradient-to-r from-rose-100 to-pink-100 rounded-2xl shadow p-8 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-rose-800 mb-3">🎉 Thank You for Your Order!</h1>
             <p class="text-gray-700 text-sm md:text-base">
@@ -21,7 +21,7 @@
             </p>
         </div>
 
-        {{-- ✅ Order Summary Card --}}
+        {{-- Order Summary Card --}}
         <div class="bg-white shadow-md rounded-2xl border p-6 md:p-8">
             <h2 class="text-xl font-semibold text-gray-800 mb-6">Order Summary</h2>
             
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        {{-- ✅ Ordered Products List --}}
+        {{-- Ordered Products List --}}
         <div class="bg-white shadow-md rounded-2xl border p-6 md:p-8">
             <h2 class="text-xl font-semibold text-gray-800 mb-6">Ordered Products</h2>
 
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        {{-- ✅ Action Buttons --}}
+        {{-- Action Buttons --}}
         <div class="text-center space-x-4">
             <a href="{{ url('/shop') }}" 
                class="px-6 py-3 bg-rose-700 text-white rounded-lg hover:bg-rose-800 transition shadow">

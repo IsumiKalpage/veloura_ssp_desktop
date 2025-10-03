@@ -1,20 +1,20 @@
-{{-- 🔹 Navbar Component --}}
+{{-- Navbar Component --}}
 <div x-data="{ open: false }" class="w-full">
     <div class="bg-white rounded-none md:rounded-full shadow-xl mt-0 md:mt-6 px-6 md:px-8 py-4 flex items-center justify-between">
 
-        {{-- 🔹 Left: Hamburger (mobile only) --}}
+        {{-- Left: Hamburger (mobile only) --}}
         <div class="flex items-center md:hidden">
             <button @click="open = !open" class="focus:outline-none">
                 <img src="{{ asset('images/hamb.png') }}" alt="Menu" class="h-7 w-7">
             </button>
         </div>
 
-        {{-- 🔹 Logo --}}
+        {{-- Logo --}}
         <a href="{{ route('dashboard') }}" class="flex-1 text-center md:flex-none md:text-left">
             <img src="{{ asset('images/logo.png') }}" alt="Veloura Logo" class="h-12 w-auto mx-auto md:mx-0">
         </a>
 
-        {{-- 🔹 Desktop Links --}}
+        {{-- Desktop Links --}}
         <div class="hidden md:flex space-x-8 text-rose-900 font-medium">
             <a href="{{ route('shop.index') }}" class="relative group whitespace-nowrap transition-colors duration-200">
                 Shop All
@@ -42,7 +42,7 @@
             </a>
         </div>
 
-        {{-- 🔹 Right: Search + Cart + Profile --}}
+        {{-- Right: Search + Cart + Profile --}}
         <div class="flex items-center space-x-6">
             
             {{-- Desktop Search --}}
@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    {{-- 🔹 Mobile Dropdown --}}
+    {{-- Mobile Dropdown --}}
     <div x-show="open" x-transition 
          class="md:hidden w-full bg-white rounded-xl shadow-lg p-5 space-y-5 text-rose-900 font-medium">
         

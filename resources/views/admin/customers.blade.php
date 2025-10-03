@@ -1,7 +1,7 @@
 {{-- resources/views/admin/customers.blade.php --}}
 <x-app-layout>
     <div class="min-h-screen bg-gray-50" x-data="{ sidebarOpen: false }">
-        <!-- 🔹 Topbar -->
+        <!-- Topbar -->
         <header class="sticky top-0 z-30 bg-white border-b border-gray-100">
             <div class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
                 <div class="h-16 flex items-center justify-between">
@@ -29,7 +29,7 @@
         <main class="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 py-6">
             <div class="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6">
                 
-                <!-- 🔹 Sidebar (desktop) -->
+                <!-- Sidebar (desktop) -->
                 <aside class="hidden md:block bg-white rounded-2xl shadow-sm border border-gray-100 p-3">
                     <nav class="flex flex-col gap-1 text-sm">
                         <a href="{{ route('admindashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
@@ -42,7 +42,7 @@
                     </nav>
                 </aside>
 
-                <!-- 🔹 Sidebar Drawer (mobile) -->
+                <!-- Sidebar Drawer (mobile) -->
                 <div class="fixed inset-0 z-40 md:hidden" x-show="sidebarOpen">
                     <div class="absolute inset-0 bg-black bg-opacity-40" @click="sidebarOpen = false"></div>
                     <div class="absolute top-0 left-0 w-64 h-full bg-white shadow-xl p-5 transform transition-transform"
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <!-- 🔹 Main Content -->
+                <!-- Main Content -->
                 <section class="flex flex-col gap-6">
                     <h2 class="text-xl font-semibold text-gray-800">Manage Customers</h2>
 
